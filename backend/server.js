@@ -6,10 +6,15 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config();
 const cloudinary = require('cloudinary')
+const authrouter = require('./routes/auth')
+app.use(express.json())
+app.use(cookieparser())
+app.use(cors());
+
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+    api_key:process.env.CLOUDINARY_API_KEY,
+    api_secret:process.env.CLOUDINARY_API_SECRET,
 });
 const connection = async (req, res) => {
     try {
@@ -20,7 +25,7 @@ const connection = async (req, res) => {
     }
 }
 connection();
-
+app.use('/auth',authrouter);
 app.listen(port,()=>{
     console.log(`server is running on port ${port}...`)
 })
