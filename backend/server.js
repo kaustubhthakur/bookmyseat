@@ -5,9 +5,13 @@ const cookieparser = require('cookie-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config();
-
-
-const connection = async(req,res)=>{
+const cloudinary = require('cloudinary')
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+const connection = async (req, res) => {
     try {
         await mongoose.connect(process.env.MONGODB)
         console.log('database is connected...')
@@ -16,6 +20,7 @@ const connection = async(req,res)=>{
     }
 }
 connection();
+
 app.listen(port,()=>{
     console.log(`server is running on port ${port}...`)
 })

@@ -4,6 +4,10 @@ const createEvent = async (req, res) => {
     try {
         const { title, description, totalseats, maxprice, minprice, location } = req.body;
         const { image } = req.body;
+        if (image) {
+            const uploadedResponse = await cloudinary.uploader.upload(image);
+            image = uploadedResponse.secure_url;
+          }
         const newuser = new User({ title, description, image, location, totalseats, maxprice, minprice });
         const saveuser = await newuser.save();
         res.status(201).json(saveuser);
