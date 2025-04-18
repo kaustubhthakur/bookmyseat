@@ -5,4 +5,5 @@ const {createSeat,getSeat,getSeats} = require('../controllers/seats')
 router.post('/:id',protectRoute,createSeat)
 router.get('/:id/:id',protectRoute,getSeat)
 router.get('/:id',protectRoute,getSeat)
+
 module.exports = router;
